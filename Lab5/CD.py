@@ -3,9 +3,10 @@
 
 
 from D import * # Line is added by Team Member D
-from C import *
+from C import * # Line is added by Team Member C
 
 def function_CD():
-	function_D() # Line is added by Team Memeber D
+	function_D() # Line is added by Team Member D
+	function_C() # Line is added by Team Member C
 	print ("CD")
 
