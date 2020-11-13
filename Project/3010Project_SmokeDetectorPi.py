@@ -6,6 +6,9 @@ import urllib
 import requests
 import json
 
+
+# Emulated Object for MQ2 sensor
+
 class MQ2:
     def __init__(self,readAPI,writeAPI):
         self.methane = 0
@@ -17,12 +20,16 @@ class MQ2:
     
     def establishConnection(self):
         self.writeTS(self.userID+','+self.sensorID+','+'TRUE')
-        time.sleep(5)
-        result = self.readTS()
-        if result == self.userID+','+self.sensorID+','+'TRUE':
-            print("Connection Established")
-        else:
-            print("Connection Failed")
+        connectionEstablished = False
+        while connectionEstablished == False:
+            time.sleep(10)
+            result = self.readTS()
+            if result == self.userID+','+self.sensorID+','+'FALSE':
+                print("Connection Established")
+                connectionEstablished = True
+            else:
+                print("Connection Failed")
+                connectionEstablished = False
     
     def readingString(self):
         self.CO2 = self.readCO2()
@@ -31,7 +38,6 @@ class MQ2:
     
     def writeTS(self,fieldString):
         params = urllib.urlencode({'field1': fieldString, 'key':self.writeAPI }) 
-        #print(params)
         headers = {"Content-typZZe": "application/x-www-form-urlencoded","Accept": "text/plain"}
         conn = httplib.HTTPConnection("api.thingspeak.com:80")
         try:
@@ -61,6 +67,8 @@ if __name__ == '__main__':
     writeAPI = "L4GUMEDFAO5XU6OZ"
     smokeDetectorPi = MQ2(readAPI,writeAPI)
     smokeDetectorPi.establishConnection()
-    smokeDetectorPi.writeTS(smokeDetectorPi.readingString())
-    print(smokeDetectorPi.readTS())
+    while True:
+        time.sleep(10)
+        smokeDetectorPi.writeTS(smokeDetectorPi.readingString())
+        print(smokeDetectorPi.readTS())
         
