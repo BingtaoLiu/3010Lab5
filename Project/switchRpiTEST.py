@@ -22,11 +22,11 @@ def establishConnection():
             #this actually means connection established but we are writing False here so that
             #when the pi reads it, it knows the value was recieved and changed to false meaning a connection
             #was established
-            connectionEstablished = "FALSE"
+            connectionEstablished = "TRUE"
             write_data_thingspeakRpiTwo(userID, sensorID, connectionEstablished)
         else:
             print("Connection Failed")
-            connectionEstablished = "TRUE"
+            connectionEstablished = "FALSE"
 
 #TEST ID = 8
 def write_data_thingspeakRpiTwo(userID, sensorID, ss):
@@ -59,6 +59,7 @@ def read_data_thingspeakRpiTwo():
     data2 = requests.get(URL2).json()
     # feeds->last entry ->field1
     result2 = data2['feeds'][len(data2['feeds']) - 1]['field1']
+    print(result2)
     return result2
 
 
