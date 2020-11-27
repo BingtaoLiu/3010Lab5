@@ -11,7 +11,7 @@ import json
 
 class SStatus:
     def __init__(self, readAPI, writeAPI):
-         self.switchS = "OFF"
+        self.switchS = "OFF"
         self.readAPI = readAPI
         self.writeAPI = writeAPI
         self.userID = '5'
