@@ -73,7 +73,7 @@ if __name__ == '__main__':
         #now we write to ThingSpeak by changing switchStatus
         write_data_thingspeakRpiTwo(userID, sensorID, "ON")
         #now we read from ThingSpeak to show we are able to check if value is same or different
-        time.sleep(3)
+        time.sleep(10)
         readT = read_data_thingspeakRpiTwo().split(",")
         #If value is ON we change it to OFF to test we can
         if readT[2] == "ON":
