@@ -12,7 +12,7 @@ userID = "10"
 sensorID = "1"
 ss= ""
 
-#TEST ID = 4
+
 def establishConnectionFridgePi():
     #Read initial value
     temp = read_data_thingspeakRpiOne()
@@ -47,22 +47,9 @@ def write_data_thingspeakRpiOne(userID, sensorID, ss):
     except:
         print("connection failed")
 
-##TEST ID =5
 def read_data_thingspeakRpiOne():
     data1 = requests.get(URL1).json()
     # feeds->last entry ->field1
     result1 = data1['feeds'][len(data1['feeds']) - 1]['field1']
     return result1
-
-
-
-if __name__ == '__main__':
-    #establishes connection with ThingSpeak
-    establishConnectionFridgePi()
-    #periodically reads from thingSpeak and displays it
-    while True:
-        time.sleep(10)
-        readT = read_data_thingspeakRpiOne().split(",")
-        for i in readT:
-            print(i)
 

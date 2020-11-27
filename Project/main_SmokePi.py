@@ -12,7 +12,7 @@ userID = "30"
 sensorID = "3"
 ss= " "
 
-#TEST ID = 4
+
 def establishConnectionSmokePi():
     #Read initial value
     temp = read_data_thingspeakRpiThree()
@@ -48,22 +48,11 @@ def write_data_thingspeakRpiThree(userID, sensorID, ss):
     except:
         print("connection failed")
 
-#TEST ID = 6
+
 def read_data_thingspeakRpiThree():
     data3 = requests.get(URL3).json()
     # feeds->last entry ->field1
     result3 = data3['feeds'][len(data3['feeds']) - 1]['field1']
     return result3
 
-
-
-if __name__ == '__main__':
-    #establishes connection with ThingSpeak
-    establishConnectionSmokePi()
-    #periodically reads from thingSpeak and displays it
-    while True:
-        time.sleep(10)
-        readT = read_data_thingspeakRpiThree().split(",")
-        for i in readT:
-            print(i)
 

@@ -9,7 +9,8 @@ key2 = "O67GXT65S5U67H2Q"
 userID = "20"
 sensorID = "2"
 ss= ""
-#TEST ID = 4
+
+
 def establishConnectionSwitchPi():
     #Read initial value
     temp = read_data_thingspeakRpiTwo()
@@ -26,7 +27,7 @@ def establishConnectionSwitchPi():
             print("Connection Failed")
             connectionEstablished = False
 
-#TEST ID = 8
+
 def write_data_thingspeakRpiTwo(userID, sensorID, ss):
     sStatus = ss
     if (sStatus == "TRUE"):
@@ -52,31 +53,11 @@ def write_data_thingspeakRpiTwo(userID, sensorID, ss):
     except:
         print("connection failed")
 
-#TEST ID = 7
+
 def read_data_thingspeakRpiTwo():
     data2 = requests.get(URL2).json()
     # feeds->last entry ->field1
     result2 = data2['feeds'][len(data2['feeds']) - 1]['field1']
     print(result2)
     return result2
-
-
-
-if __name__ == '__main__':
-    #establishes connection with ThingSpeak
-    establishConnectionSwitchPi()
-    #periodically reads from thingSpeak and displays it
-    while True:
-        time.sleep(10)
-        #now we write to ThingSpeak by changing switchStatus
-        write_data_thingspeakRpiTwo(userID, sensorID, "ON")
-        #now we read from ThingSpeak to show we are able to check if value is same or different
-        time.sleep(10)
-        readT = read_data_thingspeakRpiTwo().split(",")
-        #If value is ON we change it to OFF to test we can
-        if readT[2] == "ON":
-            write_data_thingspeakRpiTwo(userID, sensorID, "OFF")
-
-
-
 
