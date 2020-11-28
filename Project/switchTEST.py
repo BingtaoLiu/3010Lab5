@@ -1,6 +1,6 @@
 import random
 import time
-import httplib
+import http.client
 import urllib
 import urllib.request
 import requests
@@ -31,9 +31,9 @@ class SStatus:
 
 
     def writeTS(self, fieldString):
-        params = urllib.urlencode({'field1': fieldString, 'key': self.writeAPI})
+        params = urllib.parse.urlencode({'field1': fieldString, 'key': self.writeAPI})
         headers = {"Content-typZZe": "application/x-www-form-urlencoded", "Accept": "text/plain"}
-        conn = httplib.HTTPConnection("api.thingspeak.com:80")
+        conn = http.client.HTTPConnection("api.thingspeak.com:80")
         try:
             conn.request("POST", "/update", params, headers)
             response = conn.getresponse()
@@ -56,6 +56,7 @@ if __name__ == '__main__':
     writeAPI = "O67GXT65S5U67H2Q"
     switchPi = SStatus(readAPI, writeAPI)
     switchPi.establishConnection()
+    print(result)
     while True:
         time.sleep(10)
         print(switchPi.readTS())
