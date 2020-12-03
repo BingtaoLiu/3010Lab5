@@ -1,5 +1,5 @@
 import time
-import httplib
+import http.client
 import urllib
 import requests
 import json
@@ -41,9 +41,9 @@ def write_data_thingspeakRpiTwo(userID, sensorID, ss):
         join_string2 = ",".join(rpi2_list)
 
 
-    params = urllib.urlencode({'field1': join_string2, 'key': key2})
+    params = urllib.parse.urlencode({'field1': join_string2, 'key': key2})
     headers = {"Content-typZZe": "application/x-www-form-urlencoded", "Accept": "text/plain"}
-    conn = httplib.HTTPConnection("api.thingspeak.com:80")
+    conn = http.client.HTTPConnection("api.thingspeak.com:80")
     try:
         conn.request("POST", "/update", params, headers)
         response = conn.getresponse()

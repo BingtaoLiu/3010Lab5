@@ -9,6 +9,7 @@ import json
 # Switch pi
 
 class SStatus:
+    
     def __init__(self, readAPI, writeAPI):
         self.switchS = "OFF"
         self.readAPI = readAPI
@@ -23,10 +24,10 @@ class SStatus:
             time.sleep(10)
             result = self.readTS()
             if result == self.userID + ',' + self.sensorID + ',' + 'TRUE':
-                print("Connection Established")
+                print("Connection Established" + "\n")
                 connectionEstablished = True
             else:
-                print("Connection Failed")
+                print("Connection Failed" + "\n")
                 connectionEstablished = False
 
 
@@ -38,11 +39,11 @@ class SStatus:
             conn.request("POST", "/update", params, headers)
             response = conn.getresponse()
             print(fieldString)
-            print(response.status, response.reason)
+            print(response.status, response.reason + "\n")
             data = response.read()
             conn.close()
         except:
-            print("connection failed")
+            print("ERROR: Write Connection Failed" + "\n")
 
     def readTS(self):
         data = requests.get(self.readAPI).json()
@@ -56,7 +57,6 @@ if __name__ == '__main__':
     writeAPI = "O67GXT65S5U67H2Q"
     switchPi = SStatus(readAPI, writeAPI)
     switchPi.establishConnection()
-    print(result)
     while True:
         time.sleep(10)
         print(switchPi.readTS())
