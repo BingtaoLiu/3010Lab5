@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+<TextView
+    android:id="@+id/temp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="30dp"
+    android:layout_marginTop="40dp"
+    android:layout_marginEnd="300dp"
+    android:layout_marginBottom="600dp"
+    android:text="textview1"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<TextView
+    android:id="@+id/hum"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="300dp"
+    android:layout_marginTop="40dp"
+    android:layout_marginEnd="30dp"
+    android:layout_marginBottom="600dp"
+    android:text="textview2"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<View
+    android:id="@+id/divider3"
+    android:layout_width="379dp"
+    android:layout_height="1dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginTop="200dp"
+    android:layout_marginEnd="5dp"
+    android:layout_marginBottom="500dp"
+    android:background="?android:attr/listDivider"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<TextView
+    android:id="@+id/tempText"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="30dp"
+    android:layout_marginTop="80dp"
+    android:layout_marginEnd="300dp"
+    android:layout_marginBottom="550dp"
+    android:text="Temperature Levels"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<TextView
+    android:id="@+id/humText"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="300dp"
+    android:layout_marginTop="80dp"
+    android:layout_marginEnd="30dp"
+    android:layout_marginBottom="550dp"
+    android:text="Humidity Levels"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<View
+    android:id="@+id/divider4"
+    android:layout_width="379dp"
+    android:layout_height="1dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginTop="300dp"
+    android:layout_marginEnd="5dp"
+    android:layout_marginBottom="200dp"
+    android:background="?android:attr/listDivider"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<TextView
+    android:id="@+id/co2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="30dp"
+    android:layout_marginTop="190dp"
+    android:layout_marginEnd="300dp"
+    android:layout_marginBottom="350dp"
+    android:text="textview5"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<TextView
+    android:id="@+id/methane"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="300dp"
+    android:layout_marginTop="190dp"
+    android:layout_marginEnd="30dp"
+    android:layout_marginBottom="350dp"
+    android:text="textview6"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<TextView
+    android:id="@+id/co2Text"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="30dp"
+    android:layout_marginTop="220dp"
+    android:layout_marginEnd="300dp"
+    android:layout_marginBottom="300dp"
+    android:text="Carbon Dioxide Levels"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<TextView
+    android:id="@+id/methaneText"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="300dp"
+    android:layout_marginTop="220dp"
+    android:layout_marginEnd="30dp"
+    android:layout_marginBottom="300dp"
+    android:text="Methane Levels"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<TextView
+    android:id="@+id/ls"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="50dp"
+    android:layout_marginTop="400dp"
+    android:layout_marginEnd="250dp"
+    android:layout_marginBottom="90dp"
+    android:text="textview9"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<ToggleButton
+    android:id="@+id/onOff"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:layout_marginStart="300dp"
+    android:layout_marginTop="400dp"
+    android:layout_marginEnd="30dp"
+    android:layout_marginBottom="90dp"
+    android:text="togglebutton"
+    android:textOff="OFF"
+    android:textOn="ON"
+    android:checked="true"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<Button
+    android:id="@+id/closeApp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="50dp"
+    android:layout_marginTop="600dp"
+    android:layout_marginEnd="50dp"
+    android:layout_marginBottom="40dp"
+    android:text="Close"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
