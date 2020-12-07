@@ -2,7 +2,10 @@ package com.example.startagain;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -51,16 +54,26 @@ public class MainActivity extends AppCompatActivity {
             }
             while(true){
                 try {
-                    TimeUnit.SECONDS.sleep(4);
-                    System.out.println(state_track);
-                    System.out.println(input.ready());
-                    if(input.ready() == true){
-                      System.out.println(input.readLine());
-                    }
+                   TimeUnit.SECONDS.sleep(4);
+                    System.out.println(state_track); //2
+                    System.out.println(input.ready()); //true or false
                     String read = input.readLine();
                     System.out.println(read);
                     if (read != null) {
                         recvd = read;
+                        String[] values = recvd.split(",");
+                        System.out.println(values[0]);
+                        if (values[0] == "1"){
+                           tempDisplay.setText(values[1]);
+                           humDisplay.setText(values[2]);
+
+
+                        }else if(values[0] == "3"){
+                            co2Display.setText(values[1]);
+                            methaneDisplay.setText(values[2]);
+
+                        }
+
                         System.out.println("Received msg");
                         System.out.println(recvd);
                     }
@@ -127,8 +140,12 @@ public class MainActivity extends AppCompatActivity {
         int counter = 0;
         System.out.println(state_track);
         state_track = 1;
-        ListenData();
+        addListenerOnButtonClick();
 
+
+            ListenData();
+
+        /**
         while (counter != 5) {
             SendData("Hello!");
             counter = counter +1;
@@ -139,6 +156,48 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         SendData("Close");
+         ***/
+
+    }
+
+    public void addListenerOnButtonClick(){
+        //Getting the ToggleButton layout xml file
+        toggleButton=(ToggleButton)findViewById(R.id.onOff);
+        closeButton = (Button)findViewById(R.id.closeApp);
+        lightSwitch = (TextView)findViewById(R.id.ls) ;
+        lightSwitch.setText(" ") ;
+        //Performing action on button click
+
+        toggleButton.setOnClickListener(new View.OnClickListener(){
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View view) {
+                if(toggleButton.isChecked() == true){
+                    lightSwitch.setText("Light Switch ON");
+                    SendData("ON");
+                    //send on message to server
+
+
+                } else if (toggleButton.isChecked() == false) {
+                    lightSwitch.setText("Light Switch OFF");
+                    SendData("OFF");
+                    //send off message to server
+                }
+            }
+
+        });
+
+        closeButton.setOnClickListener(new View.OnClickListener(){
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View view) {
+                System.out.println("Button Working");
+                SendData("Close");
+                //send Disconnet message to server
+            }
+        });
+
+
     }
 
 }
