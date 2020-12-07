@@ -35,7 +35,7 @@ def init_pins():
     GPIO.output (13, False)
 
 def switch1_On():
-    input('Hit return to Turn Switch1 ON')
+    #input('Hit return to Turn Switch1 ON')
     print("Turning Switch1 ON" + "\n") 
     # Set socket encoder pins to 0111
     GPIO.output(11, False)
@@ -48,7 +48,7 @@ def switch1_On():
     GPIO.output(22, False) # Disable Modulator
     
 def switch2_On():
-    input('Hit return to Turn Switch2 ON')
+    #input('Hit return to Turn Switch2 ON')
     print("Turning Switch2 ON" + "\n")
     # Set socket encoder pins to 1111
     GPIO.output(11, True)
@@ -61,7 +61,7 @@ def switch2_On():
     GPIO.output(22, False) # Disable Modulator
 
 def switch1_Off():
-    input('Hit return to Turn Switch1 OFF')
+    #input('Hit return to Turn Switch1 OFF')
     print("Turning Switch OFF" + "\n")
     # Set socket encoder pins to 0110
     GPIO.output(11, False)
@@ -74,7 +74,7 @@ def switch1_Off():
     GPIO.output(22, False) # Disable Modulator
     
 def switch2_Off():
-    input('Hit return to Turn Switch2 OFF')
+    #input('Hit return to Turn Switch2 OFF')
     print("Turning Switch2 OFF" + "\n")
     # Set socket encoder pins to 1110
     GPIO.output(11, True)
@@ -123,7 +123,8 @@ def read_TS():
     #print(value)
     #return value
     print("Field 1 Result: " + result + "\n")
-    status = result[2].split(',')
+    status = result.split(',')
+    status = status[2]
     print("Switch Status: " + status)
     return status
 
@@ -151,13 +152,13 @@ if __name__ == '__main__':
             state = read_TS()
             if state == "OFF":
                 switch1_On()
-                state = "ON"
+                #state = "ON"
                 #write_TS(switch.userID, switch.sensorID, state)
                 print("Current State of Device1: " + state + "\n")
                # print(exit)
             elif state == "ON":
                 switch1_Off()
-                state = "OFF"
+                #state = "OFF"
                 #write_TS(switch.userID, switch.sensorID, state)
               #  print(exit)
                 print("Current State of Device1: " + state + "\n")
@@ -167,7 +168,7 @@ if __name__ == '__main__':
                 write_TS(switch.userID, switch.sensorID, state)
                 print("Current State of Device1: " + state + "\n")
 
-        time.sleep(1)
+        time.sleep(10)
         
     except:
         print("\nCurrent State of Device: NULL\n")
