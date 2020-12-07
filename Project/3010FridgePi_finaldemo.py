@@ -19,12 +19,12 @@ class FridgePi:
         self.sensorID = '1'
     
     def establishConnection(self):
-        self.writeTS(self.userID+','+self.sensorID+','+'TRUE')
+        self.writeTS(self.userID+','+self.sensorID+','+'FALSE')
         connectionEstablished = False
         while connectionEstablished == False:
             time.sleep(10)
             result = self.readTS()
-            if result == self.userID+','+self.sensorID+','+'FALSE':
+            if result == self.userID+','+self.sensorID+','+'TRUE':
                 print("Connection Established")
                 connectionEstablished = True
             else:
