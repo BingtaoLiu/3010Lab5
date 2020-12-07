@@ -125,7 +125,7 @@ def read_TS():
     print("Field 1 Result: " + result + "\n")
     status = result.split(',')
     status = status[2]
-    print("Switch Status: " + status)
+    print("Switch Status: " + status + "\n")
     return status
 
 
@@ -143,32 +143,34 @@ if __name__ == '__main__':
         state = read_TS()
         print("State of Device at Initial Connection: " + state + "\n")
     except:
-        print("STATE INIT CONNECTION ERROR")
+        print("INITIAL STATE CONNECTION ERROR")
         print("State of Device After Initialization: NULL\n")
         state = None
 
     try:
-        while True:
+        while True: 
             state = read_TS()
             if state == "OFF":
-                switch1_On()
-                #state = "ON"
+                switch1_Off()
+                status = "OFF"
                 #write_TS(switch.userID, switch.sensorID, state)
-                print("Current State of Device1: " + state + "\n")
+                print("Current State of Device: " + status + "\n")
+                time.sleep(5)
                # print(exit)
             elif state == "ON":
-                switch1_Off()
-                #state = "OFF"
+                switch1_On()
+                status = "ON"
                 #write_TS(switch.userID, switch.sensorID, state)
               #  print(exit)
-                print("Current State of Device1: " + state + "\n")
+                print("Current State of Device: " + status + "\n")
+                time.sleep(5)
             else:
                 print("STATE CONNECTION ERROR")
                 state = None
                 write_TS(switch.userID, switch.sensorID, state)
-                print("Current State of Device1: " + state + "\n")
+                print("Current State of Device: " + state + "\n")
 
-        time.sleep(10)
+        time.sleep(1)
         
     except:
         print("\nCurrent State of Device: NULL\n")

@@ -26,7 +26,7 @@ class SStatus:
             print("Reading from ThingSpeak...")
             result = self.readTS()
             print("Waiting for Server...")
-            if result == self.userID + ',' + self.sensorID + ',' + 'OFF':
+            if result == self.userID + ',' + self.sensorID + ',' + 'ON':
                 print("Connection Established" + "\n")
                 connectionEstablished = True
             else:
