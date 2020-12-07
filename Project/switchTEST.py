@@ -21,8 +21,11 @@ class SStatus:
         self.writeTS(self.userID + ',' + self.sensorID + ',' + 'TRUE')
         connectionEstablished = False
         while connectionEstablished == False:
+            print("Establishing Connection...")
             time.sleep(10)
+            print("Reading from ThingSpeak...")
             result = self.readTS()
+            print("Waiting for Server...")
             if result == self.userID + ',' + self.sensorID + ',' + 'OFF':
                 print("Connection Established" + "\n")
                 connectionEstablished = True
