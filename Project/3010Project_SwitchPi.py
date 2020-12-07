@@ -97,9 +97,9 @@ def all_off():
 def write_TS(userID, sensorID, switchStatus):
     # send data as one string separeted by ","
     rpi2_list = [userID, sensorID, switchStatus]
-    join_string2 = ",".join(rpi2_list)
+    join_string = ",".join(rpi2_list)
     
-    params = urllib.parse.urlencode({'field1': switchStatus, 'field2': userID, 'field3': sensorID, 'key': writeAPI})
+    params = urllib.parse.urlencode({'field1': join_string, 'key': writeAPI})
     headers = {"Content-typZZe": "application/x-www-form-urlencoded", "Accept": "text/plain"}
     conn = http.client.HTTPConnection("api.thingspeak.com:80")
     
@@ -123,7 +123,9 @@ def read_TS():
     #print(value)
     #return value
     print("Field 1 Result: " + result + "\n")
-    return result
+    status = result[2].split(',')
+    print("Switch Status: " + status)
+    return status
 
 
 if __name__ == '__main__':

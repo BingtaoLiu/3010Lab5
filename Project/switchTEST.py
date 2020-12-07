@@ -60,6 +60,7 @@ if __name__ == '__main__':
     writeAPI = "O67GXT65S5U67H2Q"
     switchPi = SStatus(readAPI, writeAPI)
     switchPi.establishConnection()
+    switch.readTS()
     while True:
         time.sleep(10)
         print(switchPi.readTS())
