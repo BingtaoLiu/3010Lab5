@@ -25,6 +25,12 @@ public class MainActivity extends AppCompatActivity {
     private TextView humDisplay;
     private TextView co2Display;
     private TextView methaneDisplay;
+    /**
+    tempDisplay = (TextView)findViewById(R.id.temp);
+    humDisplay = (TextView)findViewById(R.id.hum);
+    co2Display = (TextView)findViewById(R.id.co2);
+    methaneDisplay = (TextView)findViewById(R.id.methane);
+     **/
     public int state_track = 0;
 
     public static PrintWriter output;
@@ -37,22 +43,39 @@ public class MainActivity extends AppCompatActivity {
     Socket recvSocket;
 
     class listenThread implements Runnable {
+    public String send_val;
         @Override
         public void run() {
             try {
                 recvSocket = new Socket(SERVER_IP, SERVER_PORT);
                 System.out.println(state_track);
                 state_track = 2;
-                try {
-                    //recieve messages
-                    input = new BufferedReader(new InputStreamReader(recvSocket.getInputStream()));
-                } catch (IOException e) {
-                    e.printStackTrace();
+                //input = new BufferedReader(new InputStreamReader(recvSocket.getInputStream()));
+                while(true) {
+                    try {
+                        //recieve messages
+                        TimeUnit.SECONDS.sleep(4);
+                        input = new BufferedReader(new InputStreamReader(recvSocket.getInputStream()));
+                        System.out.println(state_track); //2
+                        //System.out.println(input.ready()); //true or false
+                        String read = input.readLine();
+                        System.out.println(read);
+                        if (read != null) {
+                            recvd = read;
+                            send_val = recvd;
+
+                            System.out.println("Received msg");
+                            System.out.println(recvd);
+                        }
+
+                    } catch (IOException| InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            while(true){
+                /***
                 try {
                    TimeUnit.SECONDS.sleep(4);
                     System.out.println(state_track); //2
@@ -71,25 +94,60 @@ public class MainActivity extends AppCompatActivity {
                         }else if(values[0] == "3"){
                             co2Display.setText(values[1]);
                             methaneDisplay.setText(values[2]);
-
                         }
-
                         System.out.println("Received msg");
                         System.out.println(recvd);
                     }
                 } catch (IOException | InterruptedException e) {
                     e.printStackTrace();
                 }
+                ***/
+
+        }
+
+        public String getValue() {
+            if(send_val != null) {
+                return send_val;
+            } else {
+                return null;
             }
         }
+
+
     }
 
     public void ListenData (){
         System.out.println("In ListenData Method");
-        listenThread l = new listenThread();
+        listenThread a = new listenThread();
         System.out.println("L thread Made");
         System.out.println("About to receieve data to thread");
-        new Thread(l).start();
+        new Thread(a).start();
+        /**
+        String[] values = (a.getValue()).split(",");
+        if (!(values.equals(null))) {
+            //System.out.println(values[0]);
+            if (values[0].equals("1")) {
+                    tempDisplay.setText(values[1]);
+                    humDisplay.setText(values[2]);
+
+            } else if (values[0].equals("3")) {
+                    co2Display.setText(values[1]);
+                    methaneDisplay.setText(values[2]);
+            }
+        } else {
+             tempDisplay.setText(" ");
+             humDisplay.setText(" ");
+             co2Display.setText(" ");
+             methaneDisplay.setText(" ");
+
+        }
+        **/
+
+
+
+
+
+
     }
 
 
@@ -132,6 +190,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         tempDisplay = (TextView)findViewById(R.id.temp);
         humDisplay = (TextView)findViewById(R.id.hum);
         co2Display = (TextView)findViewById(R.id.co2);
@@ -143,9 +202,9 @@ public class MainActivity extends AppCompatActivity {
         addListenerOnButtonClick();
 
 
-            ListenData();
+        ListenData();
 
-        /**
+        /***
         while (counter != 5) {
             SendData("Hello!");
             counter = counter +1;
@@ -156,7 +215,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         SendData("Close");
-         ***/
+         **/
+
 
     }
 
@@ -176,7 +236,6 @@ public class MainActivity extends AppCompatActivity {
                     lightSwitch.setText("Light Switch ON");
                     SendData("ON");
                     //send on message to server
-
 
                 } else if (toggleButton.isChecked() == false) {
                     lightSwitch.setText("Light Switch OFF");

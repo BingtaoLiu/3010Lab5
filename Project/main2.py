@@ -74,12 +74,13 @@ def update_Value(val, conn, addr):
    #contains the values needed to update
    temp = val[0].split(",")
    print(val)
-   print(temp[1])
-   a = int(temp[1])
-   b = int(temp[0])
-   print(a)
-   print(b)
-   try:
+   if (len(temp) == 4):
+        print(temp[1])
+        a = int(temp[1])
+        b = int(temp[0])
+        print(a)
+        print(b)
+        try:
             # connect to database
             dbconnect = sqlite3.connect("myDatabaseServer.db")
             # access coloumns by name
@@ -89,12 +90,13 @@ def update_Value(val, conn, addr):
 
             # We check the sensor IDs to see if they were 1, 2 or 3 and depending on the sensor we go into the if condition
             # sensorID 1 represents the temperature and humidity sensor
-            print(last_entry_id1)
+
             if (a == 1 ):
-                print("In if condition")
+
+                print(last_entry_id1)
                 if(last_entry_id1 != val[1]):
-                    last_entry_id1 = val[1]
                     print(last_entry_id1)
+                    last_entry_id1 = val[1]
                     sqlite_update_query = """Update server set Temperature = ?, Humidity = ? where userID = ? and sensorID = ?"""
                     columnValues = (temp[2], temp[3], temp[0], temp[1])
                     cursor.execute(sqlite_update_query, columnValues)
@@ -102,9 +104,10 @@ def update_Value(val, conn, addr):
                     tempa = [str(a),temp[2] ,temp[3]]
                     msg_to_app = ",".join(tempa)
                     send_to_client(conn, addr, msg_to_app)
+                    cursor.close()
 
             # sensorID 3 represents the CO2 and methane sensor
-            elif (temp[1] == 3):
+            elif (a == 3):
                 if(last_entry_id3 != val[1]):
                     last_entry_id3 = val[1]
                     sqlite_update_query = """Update server set CO2 = ?, Methane = ? where userID = ? and sensorID = ?"""
@@ -117,21 +120,20 @@ def update_Value(val, conn, addr):
                     print("CO2 and Methane values updated successfully")
                     cursor.close()
 
-
-
-   except sqlite3.Error as error:
-       print("Failed to update multiple columns of sqlite table", error)
-       return 0
-   finally:
-       if (dbconnect):
-           dbconnect.close()
-           print("sqlite connection is closed")
+        except sqlite3.Error as error:
+            print("Failed to update multiple columns of sqlite table", error)
+            return 0
+        finally:
+            if (dbconnect):
+                dbconnect.close()
+                print("sqlite connection is closed")
 
 
 ###Updates value in the database server###
 def update_Switch(val, conn, addr):
    #contains the values needed to update
    temp = val.split(",")
+   print(temp)
    uid = int(temp[0])
    sid = int(temp[1])
    try:
@@ -288,36 +290,45 @@ if __name__ == '__main__':
 
     # establish connection with Users
     establishConnectionFridgePi()
-    #establishConnectionSwitchPi()
-    #establishConnectionSmokePi()
+    establishConnectionSwitchPi()
+    establishConnectionSmokePi()
 
     print("[STARTING] server is starting..")
     connected1 = True
     server.listen()
     while connected1:
         conn, addr = server.accept()
+        server.setblocking(1)
         print("Client Connected")
         data1 = read_data_thingspeakRpiOne()
-        #data3 = read_data_thingspeakRpiThree()
-        ###Get on or off value from client and update server
-        #data2 = handle_client(conn, addr)
-        #make string and send to database to be updated
-        #rpiS_list = [str(20),str(2), data2]
-        #join_stringS = ",".join(rpiS_list)
-        #update_Switch(join_stringS, conn, addr)
-        #conn, addr = server.accept()
-        #print("Client Connected Again")
+        data3 = read_data_thingspeakRpiThree()
         update_Value(data1, conn, addr)
-        time.sleep(7)
-        #conn, addr = server.accept()
-        #print("Client Connected Again")
-        #update_Value(data3, conn, addr)
-        #time.sleep(7)
-
+        print("FPI values updated")
+        #conn.close()
+        #time.sleep(5)
+        conn, addr = server.accept()
+        print("Client Connected Again")
+        update_Value(data3, conn, addr)
+        print("SmPI values updated")
+        time.sleep(5)
+        conn, addr = server.accept()
+        print("Client Connected Again")
+        ###Get on or off value from client and update server
+        data2 = handle_client(conn, addr)
+        #Checks if a disconnect msg was sent from the client, if so get out of loop else update value in db and ts
+        if data2 == DISCONNECT_MESSAGE:
+            connected1 = False
+        else:
+        #make string and send to database to be updated
+            rpiS_list = [str(20),str(2), data2]
+            print(rpiS_list)
+            join_stringS = ",".join(rpiS_list)
+            print(join_stringS)
+            update_Switch(join_stringS, conn, addr)
+            print("SwPI values updated")
 
 
 
     print_Table()
-
 
 
