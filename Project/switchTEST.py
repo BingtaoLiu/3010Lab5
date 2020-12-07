@@ -23,7 +23,7 @@ class SStatus:
         while connectionEstablished == False:
             time.sleep(10)
             result = self.readTS()
-            if result == self.userID + ',' + self.sensorID + ',' + 'TRUE':
+            if result == self.userID + ',' + self.sensorID + ',' + 'OFF':
                 print("Connection Established" + "\n")
                 connectionEstablished = True
             else:

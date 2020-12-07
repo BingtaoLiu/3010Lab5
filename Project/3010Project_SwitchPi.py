@@ -136,7 +136,7 @@ if __name__ == '__main__':
     init_pins()
     
     try:
-        write_TS(switch.userID, switch.sensorID, "OFF")
+        #write_TS(switch.userID, switch.sensorID, "OFF")
         state = read_TS()
         print("State of Device at Initial Connection: " + state + "\n")
     except:
@@ -150,13 +150,13 @@ if __name__ == '__main__':
             if state == "OFF":
                 switch1_On()
                 state = "ON"
-                write_TS(switch.userID, switch.sensorID, state)
+                #write_TS(switch.userID, switch.sensorID, state)
                 print("Current State of Device1: " + state + "\n")
                # print(exit)
             elif state == "ON":
                 switch1_Off()
                 state = "OFF"
-                write_TS(switch.userID, switch.sensorID, state)
+                #write_TS(switch.userID, switch.sensorID, state)
               #  print(exit)
                 print("Current State of Device1: " + state + "\n")
             else:
