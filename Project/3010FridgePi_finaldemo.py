@@ -77,5 +77,5 @@ if __name__ == '__main__':
     while True:
         time.sleep(10)
         SenseHatPi.writeTS(SenseHatPi.readingString())
-        print(SenseHatPi.readTS())
+        #print(SenseHatPi.readTS())
         
